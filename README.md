@@ -7,7 +7,7 @@ El codigo anterior esta basado en la libreria IR de markszabo, la cual se encuen
 
 **Una vez compile y cargue el programa en el ESP01, usted debra escribir en su navegador la dirección IP establecida en el codigo.**
 
-wifiManager.setSTAStaticIPConfig(IPAddress(192,168,100,80), IPAddress(192,168,100,0), IPAddress(255,255,255,0));
+>wifiManager.setSTAStaticIPConfig(IPAddress(192,168,100,80), IPAddress(192,168,100,0), IPAddress(255,255,255,0));
 
 Una vez ingresada la IP le aparecera una imagen como la siguiente:
 
