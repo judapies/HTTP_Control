@@ -1,60 +1,7 @@
 sitemap home label="Esteban Home" {
-    Frame {
-        Group item=Bedroom
-        Group item=Bathroom
-        Group item=Outside
-        Group item=Patio
-	Switch item=Presence_Judapies label="iPhone Judapies"	
-	Switch item=Presence_Janeth   label="Huawei Janeth"
-	Webview url="http://186.145.62.211:800/web/mobile.html" height=8
-    }
-
-    Frame {
-        Text label="Luz" icon="light" {
-            Default item=Bedroom_Light label="Habitacion"
-            Default item=Bathroom_Light label="Baño"
-            Default item=Outside_Light label="Sotea"
-            Default item=Patio_Light label="Patio"
-        }
-
-        Text label="Puerta" icon="door" {
-            Default item=Bedroom_Door label="Habitacion"
-	    Default item=Patio_Motion label="Sotea"
-        }
-
-    }
-
-	Frame label="Temperatura"{
-	Text item=Weather_Temperature valuecolor=[Weather_LastUpdate=="NULL"="lightgray",Weather_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] {
-			Frame {
-				Text item=Weather_Temp_Max valuecolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
-				Text item=Weather_Temp_Min valuecolor=[>25="orange",>15="green",>5="orange",<=5="blue"]
-				Text item=Weather_LastUpdate visibility=[Weather_LastUpdate>30] valuecolor=[Weather_LastUpdate>120="orange", Weather_LastUpdate>300="red"]
-			}
-			Frame {
-				Switch item=Weather_Chart_Period label="Chart Period" icon="chart" mappings=[0="Hour", 1="Day", 2="Week"]
-				Chart item=Weather_Chart period=h refresh=600 visibility=[Weather_Chart_Period==0, Weather_Chart_Period=="NULL"]
-				Chart item=Weather_Chart period=D refresh=3600 visibility=[Weather_Chart_Period==1]
-				Chart item=Weather_Chart period=W refresh=3600 visibility=[Weather_Chart_Period==2]
-			}
-
-			Frame {
-			Text item=Weather_Humidity valuecolor=[Weather_LastUpdate=="NULL"="lightgray",Weather_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
-			Text item=Weather_Pressure valuecolor=[Weather_LastUpdate=="NULL"="lightgray",Weather_LastUpdate>90="lightgray",>25="orange",>15="green",>5="orange",<=5="blue"] 
-			}
-		}
-        Text label="Astronomical Data" icon="sun" {
-            Text item=Sun_Elevation
-            Text item=Sun_Azimuth
-            Text item=Sunrise_Time
-            Text item=Sunset_Time
-            Text item=Moon_Elevation
-            Text item=Moon_Azimuth
-            Text item=Moon_Phase
-        }
+    
 	Switch item=TV_Command label="TV Command" mappings=[1="IO", 2="CH+", 3="CH-", 4="V+", 5="V-"]
 	Selection item=TV_Channel label="TV Channel" mappings=[1="RCN", 2="Caracol", 3="Discovery Kids",4="ESPN", 5="ESPN+", 6="FOX SPORTS", 7="WIN"]
 	Switch item=TV_Number label="TV Command" mappings=[0="0",1="1", 2="2", 3="3", 4="3", 5="5", 6="6", 7="7", 8="8", 9="9"]
 
-	}
 }
