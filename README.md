@@ -11,5 +11,5 @@ wifiManager.setSTAStaticIPConfig(IPAddress(192,168,100,80), IPAddress(192,168,10
 
 Una vez ingresada la IP le aparecera una imagen como la siguiente:
 
-
+ [1]: https://www.codecademy.com/tracks/web
 
