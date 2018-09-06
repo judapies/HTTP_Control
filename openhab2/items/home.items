@@ -1,4 +1,4 @@
-Number TV_Command <screen> ["Lighting"]
+`Number TV_Command <screen> ["Lighting"]
 Number TV_Channel <screen> ["Lighting"]
 Number TV_Number <screen> ["Lighting"]
 Switch AumentaCanal "Aumenta Canal" ["Lighting"] {http=">[*:GET:http://192.168.100.80/config?AumentaCH=%2$s]"}
@@ -22,3 +22,4 @@ Switch ESPN "ESPN" ["Lighting"]{http=">[*:GET:http://192.168.100.80/config?ESPN=
 Switch ESPNM "ESPN+" ["Lighting"]{http=">[*:GET:http://192.168.100.80/config?ESPNM=%2$s]"}
 Switch FOXS "FOXSPORTS" ["Lighting"]{http=">[*:GET:http://192.168.100.80/config?FOXSPORTS=%2$s]"}
 Switch WIN "WIN" ["Lighting"]{http=">[*:GET:http://192.168.100.80/config?WIN=%2$s]"}
+`
