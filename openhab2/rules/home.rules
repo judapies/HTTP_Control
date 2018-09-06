@@ -1,0 +1,215 @@
+var Timer ButtonTimer = null
+
+rule "Fuera de Casa"
+
+when
+	Item Presence_Judapies changed from ON to OFF or
+	Item Presence_Janeth changed from ON to OFF
+then
+	if(Presence_Judapies.state==OFF && Presence_Janeth.state==OFF){
+//		Bedroom_Light.sendCommand(OFF)
+//		Bathroom_Light.sendCommand(OFF)
+//		Outside_Light.sendCommand(OFF)
+//		Patio_Light.sendCommand(OFF)
+	}
+end
+
+rule "Llega a Casa"
+
+when
+        Item Presence_Judapies changed from OFF to ON or
+        Item Presence_Janeth changed from OFF to ON
+then
+        if(Sun_Elevation.state<0 && (Presence_Judapies.state==ON || Presence_Janeth.state==ON)){
+//                Bedroom_Light.sendCommand(ON)
+  //              Bathroom_Light.sendCommand(ON)
+    //           Outside_Light.sendCommand(ON)
+      //          Patio_Light.sendCommand(ON)
+        }
+end
+
+rule "Enciende Luz Patio"
+
+when
+        Item Bedroom_Door changed from CLOSED to OPEN
+then
+	if(Sun_Elevation.state<0){
+	        Patio_Light.sendCommand(ON)
+	}else{
+		Patio_Light.sendCommand(OFF)
+	}
+end
+
+
+rule "Luz Patio"
+
+when
+	Item Bedroom_Door changed from OPEN to CLOSED
+then
+	Patio_Light.sendCommand(OFF)
+end
+
+
+rule "Voice Control"
+
+when
+	Item VoiceCommand received command
+then
+	var String command=VoiceCommand.state.toString.toLowerCase
+	logInfo("Voice.Rec","VoiceCommand received"+command)
+	if(command.contains("prende")){
+	Bedroom_Light.sendCommand(ON)
+	}
+
+	if(command.contains("apaga")){
+	Bedroom_Light.sendCommand(OFF)
+	}
+end
+
+rule "Pulsador"
+when
+	Item TV_ON changed from OFF to ON or
+	Item AumentaCanal changed from OFF to ON or
+	Item DisminuyeCanal changed from OFF to ON or
+	Item AumentaVolume changed from  OFF to ON or
+        Item DisminuyeVolume changed from OFF to ON or
+	Item Uno changed from  OFF to ON or
+	Item Dos changed from  OFF to ON or
+	Item Tres changed from  OFF to ON or
+	Item Cuatro changed from  OFF to ON or
+	Item Cinco changed from  OFF to ON or
+	Item Seis changed from  OFF to ON or
+	Item Siete changed from  OFF to ON or
+	Item Ocho changed from  OFF to ON or
+	Item Nueve changed from  OFF to ON or
+	Item Cero changed from  OFF to ON or
+	Item RCN changed from  OFF to ON or
+	Item Caracol changed from  OFF to ON or
+	Item DK changed from  OFF to ON or
+	Item ESPN changed from  OFF to ON or
+	Item ESPNM changed from  OFF to ON or
+	Item FOXS changed from  OFF to ON or
+	Item WIN changed from  OFF to ON 
+then
+	if (ButtonTimer == null)
+	{
+		ButtonTimer = createTimer(now.plusMillis(200))
+		[|
+			TV_ON.sendCommand(OFF)
+			AumentaCanal.sendCommand(OFF)
+			DisminuyeCanal.sendCommand(OFF)
+			AumentaVolume.sendCommand(OFF)
+                        DisminuyeVolume.sendCommand(OFF)
+			Uno.sendCommand(OFF)
+			Dos.sendCommand(OFF)
+			Tres.sendCommand(OFF)
+			Cuatro.sendCommand(OFF)
+			Cinco.sendCommand(OFF)
+			Seis.sendCommand(OFF)
+			Siete.sendCommand(OFF)
+			Ocho.sendCommand(OFF)
+			Nueve.sendCommand(OFF)
+			Cero.sendCommand(OFF)
+			RCN.sendCommand(OFF)
+			Caracol.sendCommand(OFF)
+			DK.sendCommand(OFF)
+			ESPN.sendCommand(OFF)
+			ESPNM.sendCommand(OFF)
+			FOXS.sendCommand(OFF)
+			WIN.sendCommand(OFF)
+			ButtonTimer = null
+		]
+	}
+end
+
+rule "Comandos"
+when
+	Item TV_Command changed
+then
+	if(TV_Command.state==1){
+		TV_ON.sendCommand(ON)
+	}
+	if(TV_Command.state==2){
+                AumentaCanal.sendCommand(ON)
+        }
+	if(TV_Command.state==3){
+                DisminuyeCanal.sendCommand(ON)
+        }
+	if(TV_Command.state==4){
+                AumentaVolume.sendCommand(ON)
+        }
+	if(TV_Command.state==5){
+                DisminuyeVolume.sendCommand(ON)
+        }
+	TV_Command.postUpdate(0)
+end
+
+rule "Canales"
+when
+        Item TV_Channel changed
+then
+        if(TV_Channel.state==1){
+                RCN.sendCommand(ON)
+        }
+        if(TV_Channel.state==2){
+                Caracol.sendCommand(ON)
+        }
+        if(TV_Channel.state==3){
+                DK.sendCommand(ON)
+        }
+        if(TV_Channel.state==4){
+                ESPN.sendCommand(ON)
+        }
+        if(TV_Channel.state==5){
+                ESPNM.sendCommand(ON)
+        }
+	if(TV_Channel.state==6){
+                FOXS.sendCommand(ON)
+        }
+	if(TV_Channel.state==7){
+                WIN.sendCommand(ON)
+        }
+
+        TV_Channel.postUpdate(0)
+end
+
+rule "Numeros"
+when
+        Item TV_Number changed
+then
+        if(TV_Number.state==1){
+                Uno.sendCommand(ON)
+        }
+        if(TV_Number.state==2){
+                Dos.sendCommand(ON)
+        }
+        if(TV_Number.state==3){
+                Tres.sendCommand(ON)
+        }
+        if(TV_Number.state==4){
+                Cuatro.sendCommand(ON)
+        }
+        if(TV_Number.state==5){
+                Cinco.sendCommand(ON)
+        }
+        if(TV_Number.state==6){
+                Seis.sendCommand(ON)
+        }
+        if(TV_Number.state==7){
+                Siete.sendCommand(ON)
+        }
+	if(TV_Number.state==8){
+                Ocho.sendCommand(ON)
+        }
+        if(TV_Number.state==9){
+                Nueve.sendCommand(ON)
+        }
+        if(TV_Number.state==0){
+                Cero.sendCommand(ON)
+        }
+
+        TV_Channel.postUpdate(10)
+end
+
+
+

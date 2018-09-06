@@ -1,0 +1,36 @@
+Group     Home             "Esteban Home"           <house>
+
+Group     Bedroom          "Habitacion"             <bedroom>   (Home)
+Group     Bathroom         "Baño"                   <bath>      (Home)
+Group     Outside          "Sotea"                  <garden>    (Home)
+Group     Patio            "Patio"                  <terrace>   (Home)
+
+Switch    Bedroom_Light    "Luz Cuarto"                    <light>     (Bedroom, gLight)   [ "Lighting" ]     {http=">[*:GET:http://192.168.100.69/hygrostat?Humidifier=%2$s] <[http://192.168.100.69/hygrostat:200:REGEX(.*?Humidifier: (.*?), switch .*)]"}
+Contact   Bedroom_Door     "Puerta[MAP(en.map):%s]" <door>      (Bedroom, gDoor)        {http="<[http://192.168.100.71/hygrostat:200:REGEX(.*?Humidifier: (.*?), switch .*)]"}
+Switch    Bathroom_Light   "Luz Baño"                    <light>     (Bathroom, gLight)   [ "Lighting" ]    {http=">[*:GET:http://192.168.100.67/hygrostat?Humidifier=%2$s] <[http://192.168.100.67/hygrostat:200:REGEX(.*?Humidifier: (.*?), switch .*)]"}
+Switch    Outside_Light    "Luz Sotea"                    <light>     (Outside, gLight)    [ "Lighting" ]    {http=">[*:GET:http://192.168.100.73/hygrostat?Humidifier=%2$s]"}
+Switch    Patio_Light      "Luz Patio"                    <light>     (Patio, gLight)    [ "Lighting" ]      {http=">[*:GET:http://192.168.100.65/hygrostat?Humidifier=%2$s] <[http://192.168.100.65/hygrostat:200:REGEX(.*?Humidifier: (.*?), switch .*)]"}
+Contact   Patio_Motion     "Sensor de movimiento[MAP(en.map):%s]" <motion>    (Outside, gDoor)        {http="<[http://192.168.100.73/hygrostat:200:REGEX(.*?Humidifier: (.*?), switch .*)]"}
+Switch    Presence_Judapies "iPhone Judapies"       <network>   { channel="network:device:192_168_100_106:online" }
+Switch    Presence_Janeth   "Huawei Janeth"         <network>   { channel="network:device:192_168_100_103:online" }
+Switch    TV_ON    " <screen>     (Bedroom, gLight)   [ "Lighting" ]     {http=">[*:GET:http://192.168.100.69/hygrostat?Humidifier$
+
+Group Weather_Chart
+Number Weather_Temperature      "Temperatura [%.2f °C]" <temperature> (Weather, Weather_Chart) {channel="yahooweather:weather:bogota:temperature" }
+Number Weather_Humidity         "Humedad [%d %%]"      <humidity> (Weather, Weather_Chart) {channel="yahooweather:weather:bogota:humidity" }
+Number Weather_Pressure         "Presion [%.2f mb]"    <pressure> (Weather, Weather_Chart) {channel="yahooweather:weather:bogota:pressure" }
+Number Weather_Temp_Max         "Todays Maximum [%.2f °C]"      <temperature> (Weather, Weather_Chart)
+Number Weather_Temp_Min         "Todays Minimum [%.2f °C]"      <temperature> (Weather, Weather_Chart)
+Number Weather_Chart_Period     "Chart Period"
+DateTime Weather_LastUpdate     "Last Update [%1$ta %1$tR]"     <clock>
+Number Sun_Elevation            "Sun Elevation"                 <sun>       { channel = "astro:sun:home:position#elevation" }
+Number Sun_Azimuth              "Sun Azimuth"                   <sun>       { channel = "astro:sun:home:position#azimuth" }
+DateTime Sunrise_Time           "Sunrise [%1$tH:%1$tM]"         <sunrise>   { channel = "astro:sun:home:rise#start" }
+DateTime Sunset_Time            "Sunset [%1$tH:%1$tM]"          <sunset>    { channel = "astro:sun:home:set#start" }
+Number Moon_Elevation           "Moon Elevation"                <moon>      { channel = "astro:moon:home:position#elevation" }
+Number Moon_Azimuth             "Moon Azimuth"                  <moon>      { channel = "astro:moon:home:position#azimuth" }
+String Moon_Phase               "Moon Phase"                    <moon>      { channel = "astro:moon:home:phase#name" }
+
+Group:Switch:OR(ON, OFF)         gLight    "Luz"                    <light>    (Home)
+Group:Contact:OR(OPEN, CLOSED)   gDoor     "Puerta"                 <door>     (Home)
+Group:Switch:OR(ON, OFF)         gMotion   "Sensor de movimiento"   <motion>   (Home)
