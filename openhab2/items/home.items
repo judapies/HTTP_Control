@@ -1,3 +1,4 @@
+<pre>
 ```java
 Number TV_Command <screen> ["Lighting"]
 Number TV_Channel <screen> ["Lighting"]
@@ -24,3 +25,4 @@ Switch ESPNM "ESPN+" ["Lighting"]{http=">[*:GET:http://192.168.100.80/config?ESP
 Switch FOXS "FOXSPORTS" ["Lighting"]{http=">[*:GET:http://192.168.100.80/config?FOXSPORTS=%2$s]"}
 Switch WIN "WIN" ["Lighting"]{http=">[*:GET:http://192.168.100.80/config?WIN=%2$s]"}
 ```
+</pre>
